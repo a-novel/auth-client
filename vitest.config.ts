@@ -13,10 +13,12 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     coverage: {
+      enabled: true,
+      clean: true,
       provider: "v8",
       reporter: ["text", "json", "html", "lcov"],
       reportsDirectory: "./coverage",
-      exclude: ["node_modules/**", "build/**", "public/**"],
+      include: ["src/**/*.{ts,tsx}"],
     },
   },
 });
