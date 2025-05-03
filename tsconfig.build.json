@@ -1,11 +1,15 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["./stories", ".storybook"],
+  "include": ["src", "mui.d.ts", "modules.d.ts"],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
   "compilerOptions": {
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "dist",
     "declarationMap": true,
-    "noEmit": false
+    "noEmit": false,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }
