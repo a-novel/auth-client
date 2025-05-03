@@ -36,7 +36,7 @@ jobs:
       - uses: a-novel-kit/workflows/generic-actions/codecov@master
         with:
           codecov_token: ${{ secrets.CODECOV_TOKEN }}
-          coverage_file: coverage/coverage-final.json
+          coverage_file: coverage
 
   build:
     needs:
