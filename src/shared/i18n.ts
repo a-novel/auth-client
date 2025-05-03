@@ -20,7 +20,7 @@ import { LangEnum } from "@/api";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
-const i18nPKG = i18n.createInstance();
+const i18nPKG: typeof i18n = i18n.createInstance();
 
 i18nPKG
   .use(initReactI18next)
