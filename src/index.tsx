@@ -5,13 +5,13 @@ import {
   SessionSuspense,
   SyncI18n,
   SyncSessionClaims,
-} from "@/contexts";
+} from "./contexts";
 
 import { ComponentProps, ComponentType, FC, ReactNode } from "react";
 
-export * from "@/api";
-export * from "@/hooks";
-export { useSession, useAccessToken } from "@/contexts";
+export * from "./api";
+export * from "./hooks";
+export { useSession, useAccessToken } from "./contexts";
 
 export const AuthPlatformProvider: FC<{ children: ReactNode }> = ({ children }) => (
   <>
