@@ -1,5 +1,5 @@
 import { BINDINGS_VALIDATION, Lang, LangEnum } from "@/api";
-import { RegisterForm as RegisterFormComponent } from "@/components/forms";
+import { RequestRegistrationForm as RegisterFormComponent } from "@/components/forms";
 import { useRequestRegistration } from "@/hooks";
 import { getLang, i18nPKG } from "@/shared/i18n";
 

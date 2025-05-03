@@ -1,5 +1,5 @@
 import { BINDINGS_VALIDATION, LangEnum } from "@/api";
-import { ResetPasswordForm, ResetPasswordFormProps } from "@/components/forms";
+import { RequestResetPasswordForm, ResetPasswordFormProps } from "@/components/forms";
 
 import { FC } from "react";
 
@@ -34,11 +34,11 @@ const RenderComponents: FC<ResetPasswordFormProps<any, any, any, any, any, any, 
       </InitialFormField>
     );
   };
-  return <ResetPasswordForm form={form} loginAction={() => null} />;
+  return <RequestResetPasswordForm form={form} loginAction={() => null} />;
 };
 
-const meta: Meta<typeof ResetPasswordForm> = {
-  component: ResetPasswordForm,
+const meta: Meta<typeof RequestResetPasswordForm> = {
+  component: RequestResetPasswordForm,
   parameters: {
     layout: "centered",
   },

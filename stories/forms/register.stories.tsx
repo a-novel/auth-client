@@ -1,5 +1,5 @@
 import { BINDINGS_VALIDATION, LangEnum } from "@/api";
-import { RegisterForm, RegisterFormProps } from "@/components/forms";
+import { RequestRegistrationForm, RegisterFormProps } from "@/components/forms";
 
 import { FC } from "react";
 
@@ -34,11 +34,11 @@ const RenderComponents: FC<RegisterFormProps<any, any, any, any, any, any, any, 
       </InitialFormField>
     );
   };
-  return <RegisterForm form={form} loginAction={() => null} />;
+  return <RequestRegistrationForm form={form} loginAction={() => null} />;
 };
 
-const meta: Meta<typeof RegisterForm> = {
-  component: RegisterForm,
+const meta: Meta<typeof RequestRegistrationForm> = {
+  component: RequestRegistrationForm,
   parameters: {
     layout: "centered",
   },
