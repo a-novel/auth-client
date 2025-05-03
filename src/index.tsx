@@ -1,5 +1,11 @@
-import { SessionPrivateSuspense, SessionProvider, SessionSuspense, SyncI18n, SyncSessionClaims } from "@/contexts";
-import { AuthFormProps } from "@/forms";
+import {
+  SessionPrivateSuspense,
+  SessionPrivateSuspenseProps,
+  SessionProvider,
+  SessionSuspense,
+  SyncI18n,
+  SyncSessionClaims,
+} from "@/contexts";
 
 import { ComponentProps, ComponentType, FC, ReactNode } from "react";
 
@@ -17,7 +23,10 @@ export const AuthPlatformProvider: FC<{ children: ReactNode }> = ({ children }) 
   </>
 );
 
-export const withPrivateSession = (Component: ComponentType, formProps: AuthFormProps) => {
+export const withPrivateSession = (
+  Component: ComponentType,
+  formProps: Omit<SessionPrivateSuspenseProps, "children">
+) => {
   const WrappedComponent = (props: ComponentProps<typeof Component>) => (
     <SessionPrivateSuspense {...formProps}>
       <Component {...props} />
