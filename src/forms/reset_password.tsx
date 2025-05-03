@@ -1,5 +1,5 @@
 import { BINDINGS_VALIDATION, isUserNotFoundError, Lang, LangEnum } from "@/api";
-import { ResetPasswordForm as ResetPasswordFormComponent } from "@/components/forms";
+import { RequestResetPasswordForm as ResetPasswordFormComponent } from "@/components/forms";
 import { useRequestPasswordReset } from "@/hooks";
 import { getLang, i18nPKG } from "@/shared/i18n";
 

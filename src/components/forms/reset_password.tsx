@@ -1,4 +1,4 @@
-import { RequestPasswordResetForm as ResetPasswordFormType } from "@/api";
+import { RequestPasswordResetForm as RequestPasswordResetFormType } from "@/api";
 import { FORM_WIDTH } from "@/components/forms/common";
 import { EmailInput, RenderTanstackFormErrors } from "@/components/inputs";
 import { i18nPKG } from "@/shared/i18n";
@@ -14,18 +14,18 @@ import { Trans, useTranslation } from "react-i18next";
 import { z } from "zod";
 
 export interface ResetPasswordFormProps<
-  TOnMount extends undefined | FormValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
-  TOnChange extends undefined | FormValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
-  TOnChangeAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
-  TOnBlur extends undefined | FormValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
-  TOnBlurAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
-  TOnSubmit extends undefined | FormValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
-  TOnSubmitAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
-  TOnServer extends undefined | FormAsyncValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
+  TOnMount extends undefined | FormValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
+  TOnChange extends undefined | FormValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
+  TOnChangeAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
+  TOnBlur extends undefined | FormValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
+  TOnBlurAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
+  TOnSubmit extends undefined | FormValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
+  TOnSubmitAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
+  TOnServer extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
   TSubmitMeta,
 > {
   form: ReactFormExtendedApi<
-    z.infer<typeof ResetPasswordFormType>,
+    z.infer<typeof RequestPasswordResetFormType>,
     TOnMount,
     TOnChange,
     TOnChangeAsync,
@@ -39,15 +39,15 @@ export interface ResetPasswordFormProps<
   loginAction: MouseEventHandler<HTMLButtonElement>;
 }
 
-export const ResetPasswordForm = <
-  TOnMount extends undefined | FormValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
-  TOnChange extends undefined | FormValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
-  TOnChangeAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
-  TOnBlur extends undefined | FormValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
-  TOnBlurAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
-  TOnSubmit extends undefined | FormValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
-  TOnSubmitAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
-  TOnServer extends undefined | FormAsyncValidateOrFn<z.infer<typeof ResetPasswordFormType>>,
+export const RequestResetPasswordForm = <
+  TOnMount extends undefined | FormValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
+  TOnChange extends undefined | FormValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
+  TOnChangeAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
+  TOnBlur extends undefined | FormValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
+  TOnBlurAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
+  TOnSubmit extends undefined | FormValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
+  TOnSubmitAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
+  TOnServer extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestPasswordResetFormType>>,
   TSubmitMeta,
 >({
   form,

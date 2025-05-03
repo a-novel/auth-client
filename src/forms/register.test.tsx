@@ -14,7 +14,7 @@ import { describe, expect, it, vi } from "vitest";
 
 let nockAPI: nock.Scope;
 
-describe("RegisterForm", () => {
+describe("RequestRegistrationForm", () => {
   genericSetup({
     setNockAPI: (newScope) => {
       nockAPI = newScope;

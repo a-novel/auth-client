@@ -1,4 +1,4 @@
-import { RequestRegistrationForm as RegisterFormType } from "@/api";
+import { RequestRegistrationForm as RequestRegistrationFormType } from "@/api";
 import { FORM_WIDTH } from "@/components/forms/common";
 import { EmailInput, RenderTanstackFormErrors } from "@/components/inputs";
 import { i18nPKG } from "@/shared/i18n";
@@ -14,18 +14,18 @@ import { Trans, useTranslation } from "react-i18next";
 import { z } from "zod";
 
 export interface RegisterFormProps<
-  TOnMount extends undefined | FormValidateOrFn<z.infer<typeof RegisterFormType>>,
-  TOnChange extends undefined | FormValidateOrFn<z.infer<typeof RegisterFormType>>,
-  TOnChangeAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RegisterFormType>>,
-  TOnBlur extends undefined | FormValidateOrFn<z.infer<typeof RegisterFormType>>,
-  TOnBlurAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RegisterFormType>>,
-  TOnSubmit extends undefined | FormValidateOrFn<z.infer<typeof RegisterFormType>>,
-  TOnSubmitAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RegisterFormType>>,
-  TOnServer extends undefined | FormAsyncValidateOrFn<z.infer<typeof RegisterFormType>>,
+  TOnMount extends undefined | FormValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
+  TOnChange extends undefined | FormValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
+  TOnChangeAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
+  TOnBlur extends undefined | FormValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
+  TOnBlurAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
+  TOnSubmit extends undefined | FormValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
+  TOnSubmitAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
+  TOnServer extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
   TSubmitMeta,
 > {
   form: ReactFormExtendedApi<
-    z.infer<typeof RegisterFormType>,
+    z.infer<typeof RequestRegistrationFormType>,
     TOnMount,
     TOnChange,
     TOnChangeAsync,
@@ -39,15 +39,15 @@ export interface RegisterFormProps<
   loginAction: MouseEventHandler<HTMLButtonElement>;
 }
 
-export const RegisterForm = <
-  TOnMount extends undefined | FormValidateOrFn<z.infer<typeof RegisterFormType>>,
-  TOnChange extends undefined | FormValidateOrFn<z.infer<typeof RegisterFormType>>,
-  TOnChangeAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RegisterFormType>>,
-  TOnBlur extends undefined | FormValidateOrFn<z.infer<typeof RegisterFormType>>,
-  TOnBlurAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RegisterFormType>>,
-  TOnSubmit extends undefined | FormValidateOrFn<z.infer<typeof RegisterFormType>>,
-  TOnSubmitAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RegisterFormType>>,
-  TOnServer extends undefined | FormAsyncValidateOrFn<z.infer<typeof RegisterFormType>>,
+export const RequestRegistrationForm = <
+  TOnMount extends undefined | FormValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
+  TOnChange extends undefined | FormValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
+  TOnChangeAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
+  TOnBlur extends undefined | FormValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
+  TOnBlurAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
+  TOnSubmit extends undefined | FormValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
+  TOnSubmitAsync extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
+  TOnServer extends undefined | FormAsyncValidateOrFn<z.infer<typeof RequestRegistrationFormType>>,
   TSubmitMeta,
 >({
   form,
