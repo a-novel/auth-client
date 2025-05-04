@@ -1,4 +1,4 @@
 export * from "./auth";
 export * from "./login";
-export * from "./register";
-export * from "./reset_password";
+export * from "./request_register";
+export * from "./request_reset_password";

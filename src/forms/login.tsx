@@ -113,5 +113,7 @@ export const LoginForm: FC<LoginFormProps> = ({ resetPasswordAction, registerAct
     onSubmit: onLogin,
   });
 
+  console.log(form.state);
+
   return <LoginFormComponent form={form} resetPasswordAction={resetPasswordAction} registerAction={registerAction} />;
 };

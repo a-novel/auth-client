@@ -5,7 +5,7 @@ import { QueryWrapper } from "#/utils/wrapper";
 
 import { BINDINGS_VALIDATION, LangEnum } from "@/api";
 import { SESSION_STORAGE_KEY } from "@/contexts";
-import { ResetPasswordForm } from "@/forms";
+import { RequestResetPasswordForm } from "@/forms";
 
 import { QueryClient } from "@tanstack/react-query";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
@@ -26,7 +26,9 @@ describe("RequestResetPasswordForm", () => {
 
     const queryClient = new QueryClient(MockQueryClient);
 
-    const screen = render(<ResetPasswordForm loginAction={loginAction} />, { wrapper: QueryWrapper(queryClient) });
+    const screen = render(<RequestResetPasswordForm loginAction={loginAction} />, {
+      wrapper: QueryWrapper(queryClient),
+    });
 
     expect(screen.getByLabelText(/resetPassword:fields\.email\.label/)).toBeDefined();
 
@@ -50,7 +52,9 @@ describe("RequestResetPasswordForm", () => {
 
         const queryClient = new QueryClient(MockQueryClient);
 
-        const screen = render(<ResetPasswordForm loginAction={loginAction} />, { wrapper: QueryWrapper(queryClient) });
+        const screen = render(<RequestResetPasswordForm loginAction={loginAction} />, {
+          wrapper: QueryWrapper(queryClient),
+        });
 
         const fieldInput = screen.getByLabelText(
           new RegExp(`resetPassword:fields\\.${field.name}\\.label`)
@@ -96,7 +100,9 @@ describe("RequestResetPasswordForm", () => {
 
       const queryClient = new QueryClient(MockQueryClient);
 
-      const screen = render(<ResetPasswordForm loginAction={loginAction} />, { wrapper: QueryWrapper(queryClient) });
+      const screen = render(<RequestResetPasswordForm loginAction={loginAction} />, {
+        wrapper: QueryWrapper(queryClient),
+      });
 
       const emailInput = screen.getByLabelText(/resetPassword:fields\.email\.label/) as HTMLInputElement;
 
@@ -126,7 +132,9 @@ describe("RequestResetPasswordForm", () => {
 
       const queryClient = new QueryClient(MockQueryClient);
 
-      const screen = render(<ResetPasswordForm loginAction={loginAction} />, { wrapper: QueryWrapper(queryClient) });
+      const screen = render(<RequestResetPasswordForm loginAction={loginAction} />, {
+        wrapper: QueryWrapper(queryClient),
+      });
 
       const emailInput = screen.getByLabelText(/resetPassword:fields\.email\.label/) as HTMLInputElement;
 
@@ -174,7 +182,9 @@ describe("RequestResetPasswordForm", () => {
 
         const queryClient = new QueryClient(MockQueryClient);
 
-        const screen = render(<ResetPasswordForm loginAction={loginAction} />, { wrapper: QueryWrapper(queryClient) });
+        const screen = render(<RequestResetPasswordForm loginAction={loginAction} />, {
+          wrapper: QueryWrapper(queryClient),
+        });
 
         const nockResetPassword = nockAPI
           .put(

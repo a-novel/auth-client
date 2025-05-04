@@ -1,5 +1,5 @@
 import { BINDINGS_VALIDATION, isUserNotFoundError, Lang, LangEnum } from "@/api";
-import { RequestResetPasswordForm as ResetPasswordFormComponent } from "@/components/forms";
+import { RequestResetPasswordForm as RequestResetPasswordFormComponent } from "@/components/forms";
 import { useRequestPasswordReset } from "@/hooks";
 import { getLang, i18nPKG } from "@/shared/i18n";
 
@@ -10,7 +10,7 @@ import { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 
-export interface ResetPasswordFormProps {
+export interface RequestResetPasswordFormProps {
   /**
    * The action used to switch to the login form.
    */
@@ -57,7 +57,7 @@ const handleSubmitError = (t: FormTFunction) => (error: any) => {
   return t("register:form.errors.generic");
 };
 
-export const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ loginAction }) => {
+export const RequestResetPasswordForm: FC<RequestResetPasswordFormProps> = ({ loginAction }) => {
   const { t } = useTranslation(["resetPassword", "input"], { i18n: i18nPKG });
 
   const requestResetPasswordLink = useRequestPasswordReset();
@@ -88,5 +88,5 @@ export const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ loginAction }) =
     },
   });
 
-  return <ResetPasswordFormComponent form={form} loginAction={loginAction} />;
+  return <RequestResetPasswordFormComponent form={form} loginAction={loginAction} />;
 };

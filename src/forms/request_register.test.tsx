@@ -5,7 +5,7 @@ import { QueryWrapper } from "#/utils/wrapper";
 
 import { BINDINGS_VALIDATION, LangEnum } from "@/api";
 import { SESSION_STORAGE_KEY } from "@/contexts";
-import { RegisterForm } from "@/forms";
+import { RequestRegisterForm } from "@/forms";
 
 import { QueryClient } from "@tanstack/react-query";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
@@ -26,7 +26,7 @@ describe("RequestRegistrationForm", () => {
 
     const queryClient = new QueryClient(MockQueryClient);
 
-    const screen = render(<RegisterForm loginAction={loginAction} />, { wrapper: QueryWrapper(queryClient) });
+    const screen = render(<RequestRegisterForm loginAction={loginAction} />, { wrapper: QueryWrapper(queryClient) });
 
     expect(screen.getByLabelText(/register:fields\.email\.label/)).toBeDefined();
 
@@ -50,7 +50,9 @@ describe("RequestRegistrationForm", () => {
 
         const queryClient = new QueryClient(MockQueryClient);
 
-        const screen = render(<RegisterForm loginAction={loginAction} />, { wrapper: QueryWrapper(queryClient) });
+        const screen = render(<RequestRegisterForm loginAction={loginAction} />, {
+          wrapper: QueryWrapper(queryClient),
+        });
 
         const fieldInput = screen.getByLabelText(
           new RegExp(`register:fields\\.${field.name}\\.label`)
@@ -96,7 +98,7 @@ describe("RequestRegistrationForm", () => {
 
       const queryClient = new QueryClient(MockQueryClient);
 
-      const screen = render(<RegisterForm loginAction={loginAction} />, { wrapper: QueryWrapper(queryClient) });
+      const screen = render(<RequestRegisterForm loginAction={loginAction} />, { wrapper: QueryWrapper(queryClient) });
 
       const emailInput = screen.getByLabelText(/register:fields\.email\.label/) as HTMLInputElement;
 
@@ -126,7 +128,7 @@ describe("RequestRegistrationForm", () => {
 
       const queryClient = new QueryClient(MockQueryClient);
 
-      const screen = render(<RegisterForm loginAction={loginAction} />, { wrapper: QueryWrapper(queryClient) });
+      const screen = render(<RequestRegisterForm loginAction={loginAction} />, { wrapper: QueryWrapper(queryClient) });
 
       const emailInput = screen.getByLabelText(/register:fields\.email\.label/) as HTMLInputElement;
 
@@ -169,7 +171,9 @@ describe("RequestRegistrationForm", () => {
 
         const queryClient = new QueryClient(MockQueryClient);
 
-        const screen = render(<RegisterForm loginAction={loginAction} />, { wrapper: QueryWrapper(queryClient) });
+        const screen = render(<RequestRegisterForm loginAction={loginAction} />, {
+          wrapper: QueryWrapper(queryClient),
+        });
 
         const nockRegister = nockAPI
           .put(

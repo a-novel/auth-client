@@ -1,5 +1,5 @@
 import { FormPage, FormPageProps } from "@/components/pages";
-import { LoginForm, RegisterForm, ResetPasswordForm } from "@/forms";
+import { LoginForm, RequestRegisterForm, RequestResetPasswordForm } from "@/forms";
 import { i18nPKG } from "@/shared/i18n";
 
 import { FC, useCallback, useEffect, useState } from "react";
@@ -40,7 +40,7 @@ export const AuthForm: FC<AuthFormProps> = ({ show, setTitle, ...props }) => {
   if (form === "register") {
     return (
       <FormPage {...props}>
-        <RegisterForm loginAction={toLoginForm} />
+        <RequestRegisterForm loginAction={toLoginForm} />
       </FormPage>
     );
   }
@@ -48,7 +48,7 @@ export const AuthForm: FC<AuthFormProps> = ({ show, setTitle, ...props }) => {
   if (form === "resetPassword") {
     return (
       <FormPage {...props}>
-        <ResetPasswordForm loginAction={toLoginForm} />
+        <RequestResetPasswordForm loginAction={toLoginForm} />
       </FormPage>
     );
   }

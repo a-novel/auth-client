@@ -1,6 +1,7 @@
 import { WithI18next } from "./i18n";
 import { WithMui } from "./mui";
 
+import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 import type { Preview } from "@storybook/react";
 import { themes } from "@storybook/theming";
 
@@ -11,6 +12,10 @@ const preview: Preview = {
   parameters: {
     docs: {
       theme: themes.dark,
+    },
+    viewport: {
+      viewports: INITIAL_VIEWPORTS,
+      defaultViewport: "ipad",
     },
     controls: {
       matchers: {
