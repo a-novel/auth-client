@@ -1,5 +1,5 @@
 import { BINDINGS_VALIDATION } from "@/api";
-import { getInputStatus, RenderTanstackErrors, RenderTooLongWarning } from "@/components/inputs/input.tanstack";
+import { useInputStatus, RenderTanstackErrors, RenderTooLongWarning } from "@/components/inputs/input.tanstack";
 
 import { SPACINGS } from "@a-novel/neon-ui";
 
@@ -7,7 +7,7 @@ import { ReactNode, useState } from "react";
 
 import { PasswordOutlined, VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material";
 import { IconButton, Stack, TextField } from "@mui/material";
-import { FieldApi } from "@tanstack/react-form";
+import { FieldApi, useStore } from "@tanstack/react-form";
 
 export interface PasswordInputProps {
   field: FieldApi<any, any, string, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any>;
@@ -16,7 +16,9 @@ export interface PasswordInputProps {
 }
 
 export const PasswordInput = ({ field, label, helperText }: PasswordInputProps) => {
-  const status = getInputStatus(field);
+  const status = useInputStatus(field);
+
+  const isSubmitting = useStore(field.form.store, (state) => state.isSubmitting);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -37,7 +39,7 @@ export const PasswordInput = ({ field, label, helperText }: PasswordInputProps) 
         value={field.state.value}
         onBlur={field.handleBlur}
         onChange={(e) => field.handleChange(e.target.value.substring(0, BINDINGS_VALIDATION.PASSWORD.MAX))}
-        disabled={field.form.state.isSubmitting}
+        disabled={isSubmitting}
         slotProps={{
           htmlInput: { maxLength: BINDINGS_VALIDATION.PASSWORD.MAX },
           input: {

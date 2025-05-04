@@ -42,3 +42,8 @@ pnpm add @a-novel/neon-ui @a-novel/auth-client
 ```
 
 > Follow the extra steps to install [@a-novel/neon-ui](https://github.com/a-novel/neon-ui).
+
+## Running
+
+This package requires the `VITE_AUTH_API` to be set in the environment. It must point to a valid instance of the
+[authentication api](https://github.com/a-novel/service-authentication).

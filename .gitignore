@@ -14,6 +14,9 @@ coverage
 # Sentry Config File
 .env.sentry-build-plugin
 
+# WSL bullshit
+**/*Zone.Identifier
+
 *storybook.log
 
 .envrc

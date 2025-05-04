@@ -1,5 +1,5 @@
 import { BINDINGS_VALIDATION, Lang, LangEnum } from "@/api";
-import { RequestRegistrationForm as RegisterFormComponent } from "@/components/forms";
+import { RequestRegistrationForm as RequestRegisterFormComponent } from "@/components/forms";
 import { useRequestRegistration } from "@/hooks";
 import { getLang, i18nPKG } from "@/shared/i18n";
 
@@ -10,7 +10,7 @@ import { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 
-export interface RegisterFormProps {
+export interface RequestRegisterFormProps {
   /**
    * The action used to switch to the login form.
    */
@@ -49,7 +49,7 @@ const formValidator = (t: FormTFunction) =>
  */
 const handleSubmitError = (t: FormTFunction) => () => t("register:form.errors.generic");
 
-export const RegisterForm: FC<RegisterFormProps> = ({ loginAction }) => {
+export const RequestRegisterForm: FC<RequestRegisterFormProps> = ({ loginAction }) => {
   const { t } = useTranslation(["register", "input"], { i18n: i18nPKG });
 
   const requestRegistrationLink = useRequestRegistration();
@@ -80,5 +80,5 @@ export const RegisterForm: FC<RegisterFormProps> = ({ loginAction }) => {
     },
   });
 
-  return <RegisterFormComponent form={form} loginAction={loginAction} />;
+  return <RequestRegisterFormComponent form={form} loginAction={loginAction} />;
 };

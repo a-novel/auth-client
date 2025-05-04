@@ -3,222 +3,94 @@ import { i18nPKG } from "@/shared/i18n";
 
 import { InfoBox, InfoboxProps } from "@a-novel/neon-ui";
 
+import { FC } from "react";
+
 import { CancelOutlined, ErrorOutlined, HeartBrokenOutlined } from "@mui/icons-material";
-import {
-  FieldApi,
-  DeepKeys,
-  DeepValue,
-  FormAsyncValidateOrFn,
-  FormValidateOrFn,
-  FieldAsyncValidateOrFn,
-  FieldValidateOrFn,
-  ReactFormExtendedApi,
-  useStore,
-} from "@tanstack/react-form";
+import { FieldApi, ReactFormExtendedApi, useStore } from "@tanstack/react-form";
 import { Translation } from "react-i18next";
 
 /**
  * Field errors are Zod validation errors, or string errors parsed from the API response.
  */
 const printFieldErrors = (err: any): string[] => {
+  // Error is already a string, youhou.
   if (typeof err === "string") {
     return [err];
   }
 
+  // Recursive call on all errors.
   if (Array.isArray(err)) {
     return err.flatMap((e) => printFieldErrors(e));
   }
 
+  // Best attempt to extract the message from the error.
   return [err?.message ?? err?.toString() ?? JSON.stringify(err)];
 };
 
-export interface PropsWithField<
-  TParentData,
-  TName extends DeepKeys<TParentData>,
-  TData extends DeepValue<TParentData, TName>,
-  TOnMount extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnChange extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnChangeAsync extends undefined | FieldAsyncValidateOrFn<TParentData, TName, TData>,
-  TOnBlur extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnBlurAsync extends undefined | FieldAsyncValidateOrFn<TParentData, TName, TData>,
-  TOnSubmit extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnSubmitAsync extends undefined | FieldAsyncValidateOrFn<TParentData, TName, TData>,
-  TFormOnMount extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnChange extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnChangeAsync extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TFormOnBlur extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnBlurAsync extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TFormOnSubmit extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnSubmitAsync extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TFormOnServer extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TParentSubmitMeta,
-> {
-  field: FieldApi<
-    TParentData,
-    TName,
-    TData,
-    TOnMount,
-    TOnChange,
-    TOnChangeAsync,
-    TOnBlur,
-    TOnBlurAsync,
-    TOnSubmit,
-    TOnSubmitAsync,
-    TFormOnMount,
-    TFormOnChange,
-    TFormOnChangeAsync,
-    TFormOnBlur,
-    TFormOnBlurAsync,
-    TFormOnSubmit,
-    TFormOnSubmitAsync,
-    TFormOnServer,
-    TParentSubmitMeta
-  >;
+export type AnyFieldAPI = FieldApi<
+  any,
+  any,
+  any,
+  any,
+  any,
+  any,
+  any,
+  any,
+  any,
+  any,
+  any,
+  any,
+  any,
+  any,
+  any,
+  any,
+  any,
+  any,
+  any
+>;
+
+export type AnyFormAPI = ReactFormExtendedApi<any, any, any, any, any, any, any, any, any, any>;
+
+export interface PropsWithField {
+  field: AnyFieldAPI;
 }
 
-export interface PropsWithForm<
-  TFormData,
-  TOnMount extends undefined | FormValidateOrFn<TFormData>,
-  TOnChange extends undefined | FormValidateOrFn<TFormData>,
-  TOnChangeAsync extends undefined | FormAsyncValidateOrFn<TFormData>,
-  TOnBlur extends undefined | FormValidateOrFn<TFormData>,
-  TOnBlurAsync extends undefined | FormAsyncValidateOrFn<TFormData>,
-  TOnSubmit extends undefined | FormValidateOrFn<TFormData>,
-  TOnSubmitAsync extends undefined | FormAsyncValidateOrFn<TFormData>,
-  TOnServer extends undefined | FormAsyncValidateOrFn<TFormData>,
-  TSubmitMeta,
-> {
-  form: ReactFormExtendedApi<
-    TFormData,
-    TOnMount,
-    TOnChange,
-    TOnChangeAsync,
-    TOnBlur,
-    TOnBlurAsync,
-    TOnSubmit,
-    TOnSubmitAsync,
-    TOnServer,
-    TSubmitMeta
-  >;
+export interface PropsWithForm {
+  form: AnyFormAPI;
 }
 
-export const RenderTanstackErrors = <
-  TParentData,
-  TName extends DeepKeys<TParentData>,
-  TData extends DeepValue<TParentData, TName>,
-  TOnMount extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnChange extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnChangeAsync extends undefined | FieldAsyncValidateOrFn<TParentData, TName, TData>,
-  TOnBlur extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnBlurAsync extends undefined | FieldAsyncValidateOrFn<TParentData, TName, TData>,
-  TOnSubmit extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnSubmitAsync extends undefined | FieldAsyncValidateOrFn<TParentData, TName, TData>,
-  TFormOnMount extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnChange extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnChangeAsync extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TFormOnBlur extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnBlurAsync extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TFormOnSubmit extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnSubmitAsync extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TFormOnServer extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TParentSubmitMeta,
->({
-  field,
-}: PropsWithField<
-  TParentData,
-  TName,
-  TData,
-  TOnMount,
-  TOnChange,
-  TOnChangeAsync,
-  TOnBlur,
-  TOnBlurAsync,
-  TOnSubmit,
-  TOnSubmitAsync,
-  TFormOnMount,
-  TFormOnChange,
-  TFormOnChangeAsync,
-  TFormOnBlur,
-  TFormOnBlurAsync,
-  TFormOnSubmit,
-  TFormOnSubmitAsync,
-  TFormOnServer,
-  TParentSubmitMeta
->) => {
-  if (field.state.meta.errors.length === 0) {
+export const RenderTanstackErrors: FC<PropsWithField> = ({ field }) => {
+  // Flatten all errors into a single array of string messages, ready to be printed.
+  const errors = useStore(field.store, (state) => state.meta.errors.flatMap(printFieldErrors));
+
+  if (errors.length === 0) {
     return null;
   }
 
-  const errors = field.state.meta.errors.flatMap(printFieldErrors);
-
+  // Return a standalone message.
   if (errors.length === 1) {
     return (
-      <>
-        <InfoBox icon={<ErrorOutlined />} color="error">
-          {errors}
-        </InfoBox>
-      </>
+      <InfoBox icon={<ErrorOutlined />} color="error">
+        {errors}
+      </InfoBox>
     );
   }
 
+  // Concatenate all errors into a list, then return a single message.
   return (
-    <>
-      <InfoBox icon={<ErrorOutlined />} color="error">
-        <ul>
-          {errors.map((error) => (
-            <li key={error}>{error}</li>
-          ))}
-        </ul>
-      </InfoBox>
-    </>
+    <InfoBox icon={<ErrorOutlined />} color="error">
+      <ul>
+        {errors.map((error) => (
+          <li key={error}>{error}</li>
+        ))}
+      </ul>
+    </InfoBox>
   );
 };
 
-export const RenderTooLongWarning = <
-  TParentData,
-  TName extends DeepKeys<TParentData>,
-  TData extends DeepValue<TParentData, TName>,
-  TOnMount extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnChange extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnChangeAsync extends undefined | FieldAsyncValidateOrFn<TParentData, TName, TData>,
-  TOnBlur extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnBlurAsync extends undefined | FieldAsyncValidateOrFn<TParentData, TName, TData>,
-  TOnSubmit extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnSubmitAsync extends undefined | FieldAsyncValidateOrFn<TParentData, TName, TData>,
-  TFormOnMount extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnChange extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnChangeAsync extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TFormOnBlur extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnBlurAsync extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TFormOnSubmit extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnSubmitAsync extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TFormOnServer extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TParentSubmitMeta,
->({
-  field,
-  maxLength,
-}: PropsWithField<
-  TParentData,
-  TName,
-  TData,
-  TOnMount,
-  TOnChange,
-  TOnChangeAsync,
-  TOnBlur,
-  TOnBlurAsync,
-  TOnSubmit,
-  TOnSubmitAsync,
-  TFormOnMount,
-  TFormOnChange,
-  TFormOnChangeAsync,
-  TFormOnBlur,
-  TFormOnBlurAsync,
-  TFormOnSubmit,
-  TFormOnSubmitAsync,
-  TFormOnServer,
-  TParentSubmitMeta
-> & { maxLength: number }) => {
-  const valueLength = typeof field.state.value === "string" ? (field.state.value as string).length : 0;
+export const RenderTooLongWarning: FC<PropsWithField & { maxLength: number }> = ({ field, maxLength }) => {
+  const value = useStore(field.store, (state) => state.value);
+  const valueLength = typeof value === "string" ? value.length : 0;
 
   if (valueLength < maxLength) {
     return null;
@@ -237,42 +109,18 @@ export interface RenderTanstackErrorsProps {
   customErrors?: ((err: any) => InfoboxProps | undefined)[];
 }
 
-export const RenderTanstackFormErrors = <
-  TFormData,
-  TOnMount extends undefined | FormValidateOrFn<TFormData>,
-  TOnChange extends undefined | FormValidateOrFn<TFormData>,
-  TOnChangeAsync extends undefined | FormAsyncValidateOrFn<TFormData>,
-  TOnBlur extends undefined | FormValidateOrFn<TFormData>,
-  TOnBlurAsync extends undefined | FormAsyncValidateOrFn<TFormData>,
-  TOnSubmit extends undefined | FormValidateOrFn<TFormData>,
-  TOnSubmitAsync extends undefined | FormAsyncValidateOrFn<TFormData>,
-  TOnServer extends undefined | FormAsyncValidateOrFn<TFormData>,
-  TSubmitMeta,
->({
+export const RenderTanstackFormErrors: FC<PropsWithForm & RenderTanstackErrorsProps> = ({
   form,
   customErrors = [],
-}: PropsWithForm<
-  TFormData,
-  TOnMount,
-  TOnChange,
-  TOnChangeAsync,
-  TOnBlur,
-  TOnBlurAsync,
-  TOnSubmit,
-  TOnSubmitAsync,
-  TOnServer,
-  TSubmitMeta
-> &
-  RenderTanstackErrorsProps) => {
-  const formErrorMap = useStore(form.store, (state) => state.errorMap);
-  const err = formErrorMap.onSubmit;
+}) => {
+  const submitError = useStore(form.store, (state) => state.errorMap.onSubmit);
 
-  if (!err) {
+  if (!submitError) {
     return null;
   }
 
   for (const matchFn of customErrors) {
-    const props = matchFn(err);
+    const props = matchFn(submitError);
 
     if (props) {
       return <InfoBox {...props} />;
@@ -281,55 +129,15 @@ export const RenderTanstackFormErrors = <
 
   return (
     <InfoBox icon={<HeartBrokenOutlined />} color="error">
-      {printError(err)}
+      {printError(submitError)}
     </InfoBox>
   );
 };
 
-export const getInputStatus = <
-  TParentData,
-  TName extends DeepKeys<TParentData>,
-  TData extends DeepValue<TParentData, TName>,
-  TOnMount extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnChange extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnChangeAsync extends undefined | FieldAsyncValidateOrFn<TParentData, TName, TData>,
-  TOnBlur extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnBlurAsync extends undefined | FieldAsyncValidateOrFn<TParentData, TName, TData>,
-  TOnSubmit extends undefined | FieldValidateOrFn<TParentData, TName, TData>,
-  TOnSubmitAsync extends undefined | FieldAsyncValidateOrFn<TParentData, TName, TData>,
-  TFormOnMount extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnChange extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnChangeAsync extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TFormOnBlur extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnBlurAsync extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TFormOnSubmit extends undefined | FormValidateOrFn<TParentData>,
-  TFormOnSubmitAsync extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TFormOnServer extends undefined | FormAsyncValidateOrFn<TParentData>,
-  TParentSubmitMeta,
->(
-  field: FieldApi<
-    TParentData,
-    TName,
-    TData,
-    TOnMount,
-    TOnChange,
-    TOnChangeAsync,
-    TOnBlur,
-    TOnBlurAsync,
-    TOnSubmit,
-    TOnSubmitAsync,
-    TFormOnMount,
-    TFormOnChange,
-    TFormOnChangeAsync,
-    TFormOnBlur,
-    TFormOnBlurAsync,
-    TFormOnSubmit,
-    TFormOnSubmitAsync,
-    TFormOnServer,
-    TParentSubmitMeta
-  >
-): "primary" | "secondary" | "error" => {
-  if (field.state.meta.errors.length > 0) {
+export const useInputStatus = (field: AnyFieldAPI): "primary" | "error" => {
+  const errors = useStore(field.store, (state) => state.meta.errors);
+
+  if (errors.length > 0) {
     return "error";
   }
 

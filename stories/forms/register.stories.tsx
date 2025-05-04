@@ -1,41 +1,18 @@
-import { BINDINGS_VALIDATION, LangEnum } from "@/api";
+import { BINDINGS_VALIDATION } from "@/api";
 import { RequestRegistrationForm, RegisterFormProps } from "@/components/forms";
+import { FormPage } from "@/components/pages";
+
+import { FormRenderer, NewMockForm } from "../__utils/form";
 
 import { FC } from "react";
 
 import { Meta, StoryObj } from "@storybook/react";
-import { FormApi, useForm } from "@tanstack/react-form";
 
-const RenderComponents: FC<RegisterFormProps<any, any, any, any, any, any, any, any, any>> = (props) => {
-  const form = useForm({
-    defaultValues: {
-      email: props.form.state.values.email,
-      lang: LangEnum.En,
-    },
-  });
-
-  form.store.state.isSubmitting = props.form.store.state.isSubmitting;
-  form.store.state.isSubmitSuccessful = props.form.store.state.isSubmitSuccessful;
-  form.store.state.errors = props.form.store.state.errors;
-
-  // Hijack the function responsible from triggering form changes, so the UI is not interactive.
-  const InitialFormField = form.Field;
-  form.Field = function HijackedField({ children, ...fieldProps }) {
-    return (
-      <InitialFormField {...fieldProps}>
-        {(field) => {
-          field.handleChange = () => {};
-          /* eslint-disable react/prop-types */
-          field.store.state.meta = props.form.state.fieldMeta[field.name] ?? field.store.state.meta;
-          /* eslint-disable react/prop-types */
-          field.form.store.state.isSubmitting = props.form.store.state.isSubmitting;
-          return children(field);
-        }}
-      </InitialFormField>
-    );
-  };
-  return <RequestRegistrationForm form={form} loginAction={() => null} />;
-};
+const RenderComponents: FC<RegisterFormProps<any, any, any, any, any, any, any, any, any>> = (props) => (
+  <FormPage minHeight="100vh">
+    <RequestRegistrationForm form={props.form} loginAction={() => null} />
+  </FormPage>
+);
 
 const meta: Meta<typeof RequestRegistrationForm> = {
   component: RequestRegistrationForm,
@@ -46,7 +23,7 @@ const meta: Meta<typeof RequestRegistrationForm> = {
     form: { control: { disable: true } },
   },
   tags: ["autodocs"],
-  render: (args) => <RenderComponents {...args} />,
+  render: (args) => <FormRenderer component={RenderComponents} {...args} />,
 };
 
 export default meta;
@@ -55,8 +32,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    form: new FormApi({
-      defaultValues: {
+    form: NewMockForm({
+      values: {
         email: "",
       },
     }),
@@ -65,8 +42,8 @@ export const Primary: Story = {
 
 export const WithValues: Story = {
   args: {
-    form: new FormApi({
-      defaultValues: {
+    form: NewMockForm({
+      values: {
         email: "user@provider.com",
       },
     }),
@@ -75,8 +52,8 @@ export const WithValues: Story = {
 
 export const ValuesTooLong: Story = {
   args: {
-    form: new FormApi({
-      defaultValues: {
+    form: NewMockForm({
+      values: {
         email: String("a").repeat(BINDINGS_VALIDATION.EMAIL.MAX),
       },
     }),
@@ -85,106 +62,61 @@ export const ValuesTooLong: Story = {
 
 export const FieldErrors: Story = {
   args: {
-    form: (() => {
-      const api = new FormApi({
-        defaultValues: {
-          email: "user@provider.com",
-        },
-      });
-
-      api.store.state.fieldMeta = {
-        email: {
-          errors: ["The email does not comply with our requirements."],
-          errorSourceMap: {},
-          isValid: false,
-          isTouched: true,
-          isDirty: true,
-          isBlurred: false,
-          errorMap: {},
-          isValidating: false,
-          isPristine: false,
-        },
-      };
-
-      return api;
-    })(),
+    form: NewMockForm({
+      values: {
+        email: "user@provider.com",
+      },
+      fieldErrors: {
+        email: ["The email does not comply with our requirements."],
+      },
+    }),
   },
 };
 
 export const Submitting: Story = {
   args: {
-    form: (() => {
-      const api = new FormApi({
-        defaultValues: {
-          email: "user@provider.com",
-        },
-      });
-
-      api.store.state.isSubmitting = true;
-
-      return api;
-    })(),
+    form: NewMockForm({
+      values: {
+        email: "user@provider.com",
+      },
+      isSubmitting: true,
+    }),
   },
 };
 
 export const FieldsValidating: Story = {
   args: {
-    form: (() => {
-      const api = new FormApi({
-        defaultValues: {
-          email: "user@provider.com",
-        },
-      });
-
-      api.store.state.fieldMeta = {
-        email: {
-          errors: [],
-          errorSourceMap: {},
-          isValid: false,
-          isTouched: true,
-          isDirty: true,
-          isBlurred: false,
-          errorMap: {},
-          isValidating: true,
-          isPristine: false,
-        },
-      };
-
-      return api;
-    })(),
+    form: NewMockForm({
+      values: {
+        email: "user@provider.com",
+      },
+      fieldsValidation: {
+        email: true,
+      },
+    }),
   },
 };
 
 export const RegisterError: Story = {
   args: {
-    form: (() => {
-      const api = new FormApi({
-        defaultValues: {
-          email: "user@provider.com",
-        },
-      });
-
-      // @ts-ignore
-      api.store.state.errors = ["An unexpected error occurred, please retry later."];
-
-      return api;
-    })(),
+    form: NewMockForm({
+      values: {
+        email: "user@provider.com",
+      },
+      formErrors: {
+        onSubmit: ["An unexpected error occurred, please retry later."],
+      },
+    }),
   },
 };
 
 export const Success: Story = {
   args: {
-    form: (() => {
-      const api = new FormApi({
-        defaultValues: {
-          email: "user@provider.com",
-        },
-      });
-
-      // @ts-ignore
-      api.store.state.isSubmitSuccessful = true;
-
-      return api;
-    })(),
+    form: NewMockForm({
+      values: {
+        email: "user@provider.com",
+      },
+      isSuccess: true,
+    }),
   },
 };
